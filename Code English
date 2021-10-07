@@ -1,0 +1,53 @@
+#include <Servo.h>	 //Library
+
+//Define your pins and delays here:
+
+	//Traffic Lights
+int LED_GREEN_1 = #; //Define the GREEN LED on Side 1
+int LED_RED_1 = #; //Define the RED LED on Side 1
+int LED_GREEN_2 = #; //Define the GREEN LED on Side 2
+int LED_RED_2 = #; //Define the RED LED on Side 2
+
+	//Button
+int BTN = #; //Define the button pin
+
+	//Servomotor
+int Train = -300; // Train servomotor
+int Start = 90; // Startposition servomotor
+
+//Optional to adjust
+Servo front;	//Servomotor 1
+Servo rear;	//Servomotor 2
+
+void setup() {
+	//Tells which pins are outputs
+   	pinMode(LED_GREEN_1, OUTPUT);
+  	pinMode(LED_RED_1, OUTPUT);
+    pinMode(LED_GREEN_2, OUTPUT);
+    pinMode(LED_RED_2, OUTPUT);
+	//Tells which pins are inputs
+  	pinMode(BTN, INPUT);
+	//Tells on which pins the motors are
+    front.attach(6);
+    rear.attach(5);
+}
+
+void loop()
+{
+    if (digitalRead(BTN) == HIGH) {
+    front.write(Train);
+    rear.write(Train);
+    digitalWrite(LED_RED_1, HIGH);
+    digitalWrite(LED_GREEN_1, LOW);
+    digitalWrite(LED_RED_2, HIGH);
+    digitalWrite(LED_GREEN_2, LOW);
+    delay(15000);
+    front.write(Start);
+    rear.write(Start);
+    } else {
+    digitalWrite(LED_RED_1, LOW);
+    digitalWrite(LED_GREEN_1, HIGH);
+    digitalWrite(LED_RED_2, LOW);
+    digitalWrite(LED_GREEN_2, HIGH);
+  }
+}
