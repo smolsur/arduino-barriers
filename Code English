@@ -12,7 +12,7 @@ int LED_RED_2 = #; //Define the RED LED on Side 2
 int BTN = #; //Define the button pin
 
 	//Servomotor
-int Train = -300; // Train servomotor
+int Train = 0; // Train servomotor
 int Start = 90; // Startposition servomotor
 
 //Optional to adjust
