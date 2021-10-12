@@ -1,3 +1,9 @@
+//Deze code gebruikt een knop ipv sensor,
+//was om te testen of alles wel zou werken
+//en het is gewoon een kwestie van het vervangen door een
+//sensor.
+
+
 #include <Servo.h>	 //Library
 Servo voor;	//Servomotor 1
 Servo achter;	//Servomotor 2
@@ -6,7 +12,7 @@ int LED_ROOD_1 = 3; //Pin van de eerste rode LED
 int LED_GROEN_2 = 7; //Pin van de tweede groene LED
 int LED_ROOD_2 = 8; //Pin van de tweewde rode LED
 int KNOP = 4; //Pin van de knop
-int Trein = -300; //Trein servomotor
+int Trein = 0; //Trein servomotor
 int Start = 90; //Startpositie servomotor
 
 
