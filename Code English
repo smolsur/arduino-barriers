@@ -1,53 +1,49 @@
-#include <Servo.h>	 //Library
+#include <Servo.h>   //Library
+Servo front; //Servomotor 1
+Servo rear; //Servomotor 2
+int LED_GREEN_1 = 2; //Green LED on Side A
+int LED_RED_1 = 3; //Red LED on Side A
+int LED_GREEN_2 = 7; //Green LED on Side B
+int LED_RED_2 = 8; //Red LED on Side B
+int Train = 0; // Position if a train is detected
+int Start = 90; // Position if there is no train detected
+int IR = 9; //Pin of the sensor
+int IR2 = 10; //Pin of the second sensor
+int delayTrain = 5000; //Time it takes for the motors to go back to the OPEN-position
 
-//Define your pins and delays here:
-
-	//Traffic Lights
-int LED_GREEN_1 = #; //Define the GREEN LED on Side 1
-int LED_RED_1 = #; //Define the RED LED on Side 1
-int LED_GREEN_2 = #; //Define the GREEN LED on Side 2
-int LED_RED_2 = #; //Define the RED LED on Side 2
-
-	//Button
-int BTN = #; //Define the button pin
-
-	//Servomotor
-int Train = 0; // Train servomotor
-int Start = 90; // Startposition servomotor
-
-//Optional to adjust
-Servo front;	//Servomotor 1
-Servo rear;	//Servomotor 2
 
 void setup() {
-	//Tells which pins are outputs
-   	pinMode(LED_GREEN_1, OUTPUT);
-  	pinMode(LED_RED_1, OUTPUT);
-    pinMode(LED_GREEN_2, OUTPUT);
-    pinMode(LED_RED_2, OUTPUT);
-	//Tells which pins are inputs
-  	pinMode(BTN, INPUT);
-	//Tells on which pins the motors are
-    front.attach(6);
-    rear.attach(5);
+  //Tells which pins should be outputs
+  pinMode(LED_GREEN_1, OUTPUT);
+  pinMode(LED_RED_1, OUTPUT);
+  pinMode(LED_GREEN_2, OUTPUT);
+  pinMode(LED_RED_2, OUTPUT);
+  //Tells which pins should be inputs
+  pinMode(IR, INPUT);
+  pinMode(IR2, INPUT);
+  //Tells on which pins the servomotors are attached
+  front.attach(6);
+  rear.attach(5);
 }
 
 void loop()
 {
-    if (digitalRead(BTN) == HIGH) {
-    front.write(Train);
-    rear.write(Train);
-    digitalWrite(LED_RED_1, HIGH);
-    digitalWrite(LED_GREEN_1, LOW);
-    digitalWrite(LED_RED_2, HIGH);
-    digitalWrite(LED_GREEN_2, LOW);
-    delay(15000);
-    front.write(Start);
-    rear.write(Start);
-    } else {
-    digitalWrite(LED_RED_1, LOW);
-    digitalWrite(LED_GREEN_1, HIGH);
-    digitalWrite(LED_RED_2, LOW);
-    digitalWrite(LED_GREEN_2, HIGH);
+  int statusSensor = digitalRead (IR);
+  int statusSensor2 = digitalRead(IR2);
+  if (statusSensor == 0 || statusSensor2 == 0) {
+  front.write(Train);
+  rear.write(Train);
+  digitalWrite(LED_RED_1, HIGH);
+  digitalWrite(LED_GREEN_1, LOW);
+  digitalWrite(LED_RED_2, HIGH);
+  digitalWrite(LED_GREEN_2, LOW);
+  delay(delayTrain);
+  front.write(Start);
+  rear.write(Start);
+  } else {
+  digitalWrite(LED_RED_1, LOW);
+  digitalWrite(LED_GREEN_1, HIGH);
+  digitalWrite(LED_RED_2, LOW);
+  digitalWrite(LED_GREEN_2, HIGH);
   }
 }
